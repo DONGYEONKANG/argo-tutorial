@@ -28,4 +28,21 @@ jobs:
         run: echo ${{ env.RELEASE_VERSION }}
         
       - name: docker push
-        run: docker push anfqlc0311/fastapi:${{ env.RELEASE_VERSION }} .
+        run: docker push anfqlc0311/fastapi:${{ env.RELEASE_VERSION }}
+       
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Set new image tag
+        run: |
+          cd fastapi/overlays/dev
+          kustomize edit set image ssuwani/fastapi:${{ env.RELEASE_VERSION }}
+          cd ../../../
+          git config --global user.name ${{ github.repository_owner }}
+          git config --global user.email "anfqlc1127@gmail.com"
+          git add .
+          git commit -m 'Publish new version ${{ env.RELEASE_VERSION }} to dev'
+          git push origin HEAD:refs/heads/master --force
+         
+        
+       
