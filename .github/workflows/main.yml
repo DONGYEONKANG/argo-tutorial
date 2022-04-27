@@ -1,0 +1,31 @@
+name: CI
+
+on: 
+ create:
+  tag: 
+   - "v*"
+
+jobs:
+  cici:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker Login
+        uses: docker/login-action@v1.14.1
+        with:
+          username: anfqlc0311
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+      - name: Set env ## tage v0.2 -> RELEASE_VERSION = 0.2
+        run: |
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
+      
+      - name: docker build
+        run: docker build -t anfqlc0311/fastapi:${{ env.RELEASE_VERSION }} .
+      
+      - name: show RELEASER_VERSION
+        run: echo ${{ env.RELEASE_VERSION }}
+        
+      - name: docker push
+        run: docker push anfqlc0311/fastapi:${{ env.RELEASE_VERSION }} .
