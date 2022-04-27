@@ -36,7 +36,7 @@ jobs:
       - name: Set new image tag
         run: |
           cd fastapi/overlays/dev
-          kustomize edit set image ssuwani/fastapi:${{ env.RELEASE_VERSION }}
+          kustomize edit set image anfqlc0311/fastapi:${{ env.RELEASE_VERSION }}
           cd ../../../
           git config --global user.name ${{ github.repository_owner }}
           git config --global user.email "anfqlc1127@gmail.com"
