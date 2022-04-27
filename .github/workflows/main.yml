@@ -42,7 +42,7 @@ jobs:
           git config --global user.email "anfqlc1127@gmail.com"
           git add .
           git commit -m 'Publish new version ${{ env.RELEASE_VERSION }} to dev'
-          git push origin HEAD:refs/heads/master --force
+          git push origin HEAD:refs/heads/main --force
          
         
        
