@@ -22,7 +22,7 @@ jobs:
           echo "RELEASE_VERSION=${GITHUB_REF#refs/*/v}" >> $GITHUB_ENV
       
       - name: docker build
-        run: docker build -t anfqlc0311/fastapi:${{ env.RELEASE_VERSION }} .
+        run: docker build -t anfqlc0311/fastapi:${{ env.RELEASE_VERSION }} fastapi/src
       
       - name: show RELEASER_VERSION
         run: echo ${{ env.RELEASE_VERSION }}
